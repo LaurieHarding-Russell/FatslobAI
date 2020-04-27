@@ -1,0 +1,29 @@
+; Move this
+#load-if-not-defined VIKING-CIV
+(defrule
+    (true)
+=>
+    (resign)
+)
+#end-if
+
+
+(defrule
+    (true)
+=>
+    (enable-wall-placement 2)
+    (disable-self)
+)
+
+(defrule
+    (can-build-wall-with-escrow 2 palisade-wall)
+=>
+    (build-wall 2 palisade-wall)
+)
+
+
+(defrule
+    (can-build-wall-with-escrow 2 stone-wall-line)
+=>
+    (build-wall 2 stone-wall-line)
+)

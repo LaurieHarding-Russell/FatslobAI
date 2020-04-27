@@ -1,0 +1,58 @@
+(defrule
+    (military-population >= 70)
+    (current-age == imperial-age)
+=>
+    (attack-now)
+)
+
+(defrule
+	(true)
+=>
+  (set-strategic-number sn-minimum-attack-group-size 20)
+)
+
+(defrule
+  (unit-type-count-total mangonel-line < 10);
+  (housing-headroom > 0 );
+  (current-age == imperial-age);
+  (can-train mangonel-line);
+  (building-type-count-total town-center > 0);
+=>
+  (train mangonel-line);
+)
+
+(defrule
+  (unit-type-count-total mangonel-line < 10);
+  (housing-headroom > 0 );
+  (current-age == imperial-age);
+  (can-train mangonel-line);
+  (building-type-count-total town-center > 0);
+=>
+  (train scorpion-line);
+)
+
+(defrule
+  (unit-type-count-total my-unique-unit-line < 50);
+  (housing-headroom > 0 );
+  (current-age >= castle-age);
+  (can-train my-unique-unit-line);
+  (building-type-count-total town-center > 0);
+=>
+  (train my-unique-unit-line);
+)
+
+#load-if-defined HARD
+(defrule
+	(true)
+=>
+  (set-difficulty-parameter ability-to-dodge-missiles 50)
+)
+#end-if
+
+#load-if-defined DIFFICULTY-EXTREME
+(defrule
+	(true)
+=>
+  (set-difficulty-parameter ability-to-dodge-missiles 100)
+)
+#end-if

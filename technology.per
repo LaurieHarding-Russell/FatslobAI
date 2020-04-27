@@ -1,0 +1,104 @@
+; enonomy
+(defrule
+  (food-amount < 50)
+=>
+  (research ri-loom)
+)
+
+(defrule
+  (current-age > dark-age)
+=>
+  (research ri-loom)
+)
+
+(defrule
+	(can-research-with-escrow ri-double-bit-axe)
+=>
+	(research ri-double-bit-axe)
+)
+
+(defrule
+		(can-research-with-escrow ri-horse-collar)
+=>
+	(research ri-horse-collar)
+)
+
+; Building
+(defrule
+	(can-research-with-escrow ri-fortified-wall)
+=>
+	(research ri-fortified-wall)
+)
+
+
+; Unit
+(defrule
+	(can-research-with-escrow ri-scale-barding)
+=>
+	(research ri-scale-barding))
+(defrule
+	(can-research-with-escrow ri-chain-barding)
+=>
+	(research ri-chain-barding))
+(defrule
+	(can-research-with-escrow ri-plate-barding)
+=>
+	(research ri-plate-barding))
+
+(defrule
+	(can-research-with-escrow ri-plate-barding)
+=>
+	(research ri-forging)
+)
+(defrule
+	(can-research-with-escrow ri-iron-casting)
+=>
+	(research ri-iron-casting)
+)
+(defrule
+	(can-research-with-escrow ri-iron-casting)
+=>
+	(research ri-iron-casting)
+)
+
+(defrule
+	(can-research-with-escrow ri-blast-furnace)
+=>
+	(research ri-blast-furnace)
+)
+; castles
+
+(defrule
+	(can-research-with-escrow ri-fletching)
+=>
+	(research ri-fletching)
+)
+
+(defrule
+	(can-research-with-escrow ri-ballistics)
+=>
+	(research ri-ballistics)
+)
+
+; Ages
+
+(defrule
+  (unit-type-count-total villager > 20)
+  (can-research feudal-age)
+=>
+  (research feudal-age)
+)
+
+(defrule
+  (unit-type-count-total villager > 45)
+  (can-research castle-age)
+=>
+  (research castle-age)
+)
+
+(defrule
+  (unit-type-count-total villager > 60)
+  (can-research imperial-age)
+=>
+  (research imperial-age)
+)

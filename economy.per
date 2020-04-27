@@ -1,0 +1,149 @@
+; I wish I could make landing pads for the villagers :(
+; Stategic numbers
+(defrule
+    (true)
+=>
+    (set-strategic-number sn-percent-civilian-explorers 0)
+    (set-strategic-number sn-total-number-explorers 1)
+    (set-strategic-number sn-number-explore-groups 1)
+    (set-strategic-number sn-enable-boar-hunting 1)
+    (set-strategic-number sn-minimum-boar-hunt-group-size 6)
+  	(set-strategic-number sn-minimum-number-hunters 6)
+    (disable-self)
+)
+
+(defrule
+  (current-age == dark-age)
+  =>
+  (set-strategic-number sn-food-gatherer-percentage 80)
+  (set-strategic-number sn-wood-gatherer-percentage 0)
+  (set-strategic-number sn-gold-gatherer-percentage 0)
+  (set-strategic-number sn-stone-gatherer-percentage 0)
+)
+
+(defrule
+  (current-age == dark-age)
+  (unit-type-count-total villager > 6)
+  =>
+  (set-strategic-number sn-food-gatherer-percentage 80)
+  (set-strategic-number sn-wood-gatherer-percentage 20)
+  (set-strategic-number sn-gold-gatherer-percentage 0)
+  (set-strategic-number sn-stone-gatherer-percentage 0)
+)
+
+(defrule
+  (current-age == feudal-age)
+  =>
+  (set-strategic-number sn-food-gatherer-percentage 50)
+  (set-strategic-number sn-wood-gatherer-percentage 30)
+  (set-strategic-number sn-gold-gatherer-percentage 20)
+  (set-strategic-number sn-stone-gatherer-percentage 0)
+
+  (set-escrow-percentage food 5)
+  (set-escrow-percentage wood 5)
+  (set-escrow-percentage gold 5)
+)
+
+(defrule
+  (current-age == castle-age)
+  =>
+  (set-strategic-number sn-food-gatherer-percentage 45)
+  (set-strategic-number sn-wood-gatherer-percentage 25)
+  (set-strategic-number sn-gold-gatherer-percentage 20)
+  (set-strategic-number sn-stone-gatherer-percentage 10)
+
+  (set-escrow-percentage food 10)
+  (set-escrow-percentage wood 10)
+  (set-escrow-percentage gold 10)
+)
+
+(defrule
+  (current-age == imperial-age)
+  =>
+  (set-strategic-number sn-food-gatherer-percentage 50)
+  (set-strategic-number sn-wood-gatherer-percentage 30)
+  (set-strategic-number sn-gold-gatherer-percentage  10)
+  (set-strategic-number sn-stone-gatherer-percentage 10)
+
+  (set-escrow-percentage food 1)
+  (set-escrow-percentage wood 1)
+  (set-escrow-percentage gold 1)
+  (set-escrow-percentage stone 1)
+)
+
+; Ages
+(defrule
+  (current-age == dark-age)
+  (unit-type-count-total villager < 25)
+  (can-train villager)
+  =>
+  (train villager)
+)
+
+(defrule
+    (civilian-population < 50)
+    (current-age == feudal-age)
+    (can-train villager)
+=>
+    (train villager)
+)
+
+(defrule
+    (civilian-population < 100)
+    (current-age > feudal-age)
+    (can-train villager)
+=>
+    (train villager)
+)
+
+(defrule
+  (unit-type-count-total monk < 1);
+  (can-train monk)
+=>
+  (train monk);
+)
+
+(defrule
+  (current-age == feudal-age)
+	(building-type-count town-center > 0)
+	(up-pending-objects c: farm < 8)
+	(can-build farm)
+=>
+	(build farm)
+)
+
+
+(defrule
+  (current-age >= castle-age)
+	(building-type-count town-center > 0)
+	(up-pending-objects c: farm < 30)
+	(can-build farm)
+=>
+	(build farm)
+)
+
+(defrule
+    (game-time >= 60000)
+=>
+  (set-escrow-percentage food 0)
+  (set-escrow-percentage wood 0)
+  (set-escrow-percentage gold 0)
+  (set-escrow-percentage stone 0)
+  
+  (release-escrow food)
+  (release-escrow wood)
+  (release-escrow gold)
+  (release-escrow stone)
+)
+
+#load-if-defined DIFFICULTY-EXTREME
+(defrule
+  (stone-amount < 1000)
+=>
+  (cc-add-resource wood 50)
+  (cc-add-resource gold 50)
+  (cc-add-resource food 50)
+  (cc-add-resource stone 50)
+)
+#end-if
+

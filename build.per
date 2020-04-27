@@ -1,0 +1,121 @@
+(defrule
+	(housing-headroom < 4)
+  (can-build house)
+=>
+    (build house)
+)
+
+(defrule
+    (building-type-count-total lumber-camp < 1)
+    (unit-type-count-total villager > 6)
+    (resource-found wood);
+    (can-build lumber-camp)
+=>
+    (build lumber-camp)
+)
+
+(defrule
+    (building-type-count-total blacksmith == 0)
+    (can-build blacksmith)
+=>
+    (build blacksmith)
+)
+
+(defrule
+    (building-type-count-total market == 0)
+    (can-build market)
+=>
+    (build market)
+)
+
+(defrule
+    (building-type-count-total house > 0)
+    (building-type-count-total lumber-camp > 0);
+    (building-type-count-total mill < 1)
+    (resource-found food);
+    (can-build mill)
+=>
+    (build mill)
+)
+
+(defrule
+    (current-age >= castle-age)
+    (resource-found stone);
+    (can-build mining-camp)
+=>
+    (build mining-camp)
+)
+
+(defrule
+    (current-age >= feudal-age)
+    (resource-found gold);
+    (can-build mining-camp)
+=>
+    (build mining-camp)
+)
+
+(defrule
+  (current-age >= feudal-age)
+  (building-type-count-total house > 0)
+  (building-type-count-total mill < 2)
+  (can-build mill)
+  =>
+  (build mill)
+)
+
+(defrule
+    (building-type-count-total market == 0)
+    (can-build market)
+=>
+    (build market)
+)
+
+(defrule
+    (building-type-count-total monastery < 1)
+    (can-build monastery)
+=>
+    (build monastery)
+)
+
+(defrule
+    (building-type-count-total university == 0)
+    (can-build university)
+=>
+    (build university)
+)
+
+(defrule
+	(can-build castle)
+=>
+	(build castle)
+)
+
+(defrule
+	(building-type-count siege-workshop <= 2)
+	(can-build siege-workshop)
+=>
+	(build siege-workshop)
+)
+
+(defrule
+	(building-type-count town-center < 1)
+	(can-build town-center)
+=>
+	(build town-center)
+)
+
+(defrule
+    (current-age == castle-age)
+	(building-type-count town-center < 2)
+	(can-build town-center)
+=>
+	(build town-center)
+)
+
+(defrule
+    (current-age == imperial-age)
+	(building-type-count town-center < 3)
+	(can-build town-center)
+=>
+	(build town-center)
+)
